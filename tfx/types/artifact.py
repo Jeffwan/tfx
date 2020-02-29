@@ -29,10 +29,10 @@ from typing import Any, Dict, Optional, Text, Type
 
 import absl
 import tensorflow as tf
+from tfx.utils import json_utils
 
 from google.protobuf import json_format
 from ml_metadata.proto import metadata_store_pb2
-from tfx.utils import json_utils
 
 
 class ArtifactState(object):
@@ -514,6 +514,9 @@ class ValueArtifact(Artifact):
 
   def write(self, value):
     serialized_value = self.encode(value)
+    print('ZZZ: ValueArtifact.write: Writing to '
+          + os.path.join(self.uri, self.__class__.VALUE_FILE))
+    tf.io.gfile.makedirs(self.uri)
     tf.io.gfile.GFile(os.path.join(self.uri, self.__class__.VALUE_FILE),
                       'wb').write(serialized_value)
 

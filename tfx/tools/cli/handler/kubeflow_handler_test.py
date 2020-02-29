@@ -487,7 +487,8 @@ class KubeflowHandlerTest(tf.test.TestCase):
 
     # Successful pipeline run.
     # Create fake schema in pipeline root.
-    schema_path = os.path.join(self.pipeline_root, 'SchemaGen', 'schema', '3')
+    schema_path = os.path.join(self.pipeline_root, 'SchemaGen', 'schema', '3',
+                               'data')
     tf.io.gfile.makedirs(schema_path)
     with open(os.path.join(schema_path, 'schema.pbtxt'), 'w') as f:
       f.write('SCHEMA')

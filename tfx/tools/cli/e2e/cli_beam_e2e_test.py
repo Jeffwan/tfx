@@ -273,6 +273,8 @@ class CliBeamEndToEndTest(tf.test.TestCase):
         'pipeline', 'schema', '--engine', 'beam', '--pipeline_name',
         pipeline_name
     ])
+    self.assertIsNotNone(result.exception)
+    self.assertNotEqual(result.exit_code, 0)
     self.assertIn('CLI', result.output)
     self.assertIn('Getting latest schema.', result.output)
     self.assertIn(
@@ -293,6 +295,8 @@ class CliBeamEndToEndTest(tf.test.TestCase):
         'pipeline', 'schema', '--engine', 'beam', '--pipeline_name',
         pipeline_name
     ])
+    self.assertIsNone(result.exception)
+    self.assertEqual(result.exit_code, 0)
     self.assertIn('CLI', result.output)
     self.assertIn('Getting latest schema.', result.output)
     self.assertTrue(tf.io.gfile.exists(schema_path))
